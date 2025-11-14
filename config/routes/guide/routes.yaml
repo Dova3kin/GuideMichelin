@@ -7,3 +7,17 @@ guide_michelin_accueil:
 guide_michelin_menu:
   path: /menu
   controller: App\Controller\GuideMichelinController::menu
+
+guide_michelin_voir:
+  path: /resto/voir/{id}
+  controller: App\Controller\GuideMichelinController::voir
+  requirements:
+    id: \d+
+
+guide_michelin_ajouter:
+  path: /resto/ajouter/{nom}-{chef}-{etoile}
+  controller: App\Controller\GuideMichelinController::add
+  requirements:
+    nom: \w+
+    chef: \w+
+    etoile: 0|1|2|3|4|5
