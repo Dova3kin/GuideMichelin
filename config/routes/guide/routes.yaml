@@ -1,0 +1,9 @@
+guide_michelin_accueil:
+  path: /accueil/{nom}
+  controller: App\Controller\GuideMichelinController::accueil
+  defaults:
+    nom: ""
+
+guide_michelin_menu:
+  path: /menu
+  controller: App\Controller\GuideMichelinController::menu
