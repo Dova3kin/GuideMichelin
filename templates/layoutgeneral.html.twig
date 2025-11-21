@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="navigation" >
+        <hr />
+        <a href="{{ path('guide_michelin_accueil') }}">Accueil</a> -
+        <a href="{{ path('guide_michelin_ajouter2') }}">Ajouter</a> -
+        <a href="{{ path('guide_michelin_list') }}">Liste</a> -
+        <hr />
+    </div>
+
+    <h1> {% block titre %} Guide Michelin {% endblock %} </h1>
+    <div id="contenu" >
+        {% block contenu %}
+        {% endblock %}
+    </div>
+    <hr />
+    <div id="pied_de_page" >
+        <p>&copy; DF.</p>
+    </div>
+</body>
+</html>

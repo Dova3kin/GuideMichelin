@@ -1,10 +1,9 @@
 {% extends "layoutgeneral.html.twig" %}
 
 {% block titre %}
-    {{parent()}} : Voir {{resto.nom}}
+    {{parent()}} : Ajouter
 {% endblock %}
 
 {% block contenu %}
-    <p>  {{resto}}<br>
-    </p>
+        {{ form(monFormulaire) }}
 {% endblock %}

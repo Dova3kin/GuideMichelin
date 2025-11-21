@@ -21,3 +21,11 @@ guide_michelin_ajouter:
     nom: \w+
     chef: \w+
     etoile: 0|1|2|3|4|5
+
+guide_michelin_ajouter2:
+  path: /resto/ajouter2
+  controller: App\Controller\GuideMichelinController::add2
+
+guide_michelin_list:
+  path: resto/list
+  controller: App\Controller\GuideMichelinController::list

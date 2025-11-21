@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RestoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: RestoRepository::class)]
 class Resto
@@ -21,6 +22,11 @@ class Resto
     private ?string $chef = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
+    #[Assert\Range(
+        min: 0,
+        max: 3,
+        notInRangeMessage: 'Le nombre d\'étoile doit être compris entre {{ min }} et {{ max }}',
+    )]
     private ?int $nbEtoile = null;
 
     public function getId(): ?int
