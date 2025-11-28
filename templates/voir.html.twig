@@ -8,10 +8,6 @@
     <p>  {{resto}}<br>
     </p>
     <p><a href="{{ path('guide_michelin_modifier', { 'id': resto.id }) }}">modifier la salle</a></p>
-    <ul> message :
-    {% for message in app.session.flashbag.get('infoAjout') %}
-        <li>{{ message }}</li>
-    {% endfor %}
-    </ul>
+    <p><a href="{{ path('guide_michelin_delete', { 'id' : resto.id}) }}">Supprimer réstaurant</a></p>
  </p>
 {% endblock %}

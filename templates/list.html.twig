@@ -14,4 +14,10 @@
             </a>
         <hr />
     {% endfor %}
+    {% for message in app.session.flashbag.get('infoAdd') %}
+        <li>{{ message }}</li>
+    {% endfor %}
+    {% for message in app.session.flashbag.get('infoDel') %}
+        <li>{{ message }}</li>
+    {% endfor %}
 {% endblock %}

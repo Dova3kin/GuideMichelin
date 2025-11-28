@@ -38,3 +38,9 @@ guide_michelin_modifier_suite:
   path: resto/modifierSuite/{id}
   controller: App\Controller\GuideMichelinController::modifierSuite
   methods: POST
+
+guide_michelin_delete:
+  path: resto/supprimer/{id}
+  controller: App\Controller\GuideMichelinController::delete
+  requirements:
+    id: \d+

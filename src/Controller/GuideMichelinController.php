@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\Session\Session;
 use App\Form\Type\RestoType;
 
 class GuideMichelinController extends AbstractController
@@ -43,7 +44,7 @@ class GuideMichelinController extends AbstractController
         return $this->redirectToRoute("guide_michelin_voir", ['id' => $resto->getId()]);
     }
 
-    public function add2(EntityManagerInterface $entityManager, Request $request)
+    public function add2(EntityManagerInterface $entityManager, Request $request, Session $session)
     {
         $resto = new Resto;
         $form = $this->createFormBuilder($resto)
@@ -56,7 +57,8 @@ class GuideMichelinController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($resto);
             $entityManager->flush();
-            return $this->redirectToRoute("guide_michelin_ajouter2", ["id" => $resto->getId()]);
+            $session->getFlashBag()->add("infoAdd", "Resto ajouté : " . $resto->getNom());
+            return $this->redirectToRoute("guide_michelin_list", ["id" => $resto->getId()]);
         }
         return $this->render(
             'ajouter2.html.twig',
@@ -117,5 +119,14 @@ class GuideMichelinController extends AbstractController
             'resto/modifier.html.twig',
             array('monFormulaire' => $form->createView())
         );
+    }
+
+    public function delete(EntityManagerInterface $eM, Session $session,  $id)
+    {
+        $resto = $eM->getRepository(Resto::class)->find($id);
+        $eM->remove($resto);
+        $eM->flush();
+        $session->getFlashBag()->add('infoDel', 'Salle supprimée :' . $resto);
+        return $this->redirectToRoute("guide_michelin_list");
     }
 }
