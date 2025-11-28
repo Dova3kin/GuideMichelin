@@ -29,3 +29,12 @@ guide_michelin_ajouter2:
 guide_michelin_list:
   path: resto/list
   controller: App\Controller\GuideMichelinController::list
+
+guide_michelin_modifier:
+  path: resto/modifier/{id}
+  controller: App\Controller\GuideMichelinController::modifier
+
+guide_michelin_modifier_suite:
+  path: resto/modifierSuite/{id}
+  controller: App\Controller\GuideMichelinController::modifierSuite
+  methods: POST

@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Form\Type\RestoType;
 
 class GuideMichelinController extends AbstractController
 {
@@ -68,5 +69,53 @@ class GuideMichelinController extends AbstractController
         $restos = $entityManager
             ->getRepository(Resto::class)->findAll();
         return $this->render('list.html.twig', array('restos' => $restos));
+    }
+
+    public function modifier(EntityManagerInterface $entityManager, $id)
+    {
+        $resto = $entityManager->getRepository(Resto::class)->find($id);
+        if (!$resto)
+            throw $this->createNotFoundException('Resto[id=' . $id . '] inexistante');
+        $form = $this->createForm(
+            RestoType::class,
+            $resto,
+            ['action' => $this->generateUrl(
+                'guide_michelin_modifier_suite',
+                array('id' => $resto->getId())
+            )]
+        );
+        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        return $this->render(
+            'modifier.html.twig',
+            array('monFormulaire' => $form->createView())
+        );
+    }
+
+    public function modifierSuite(EntityManagerInterface $entityManager, Request
+    $request, $id)
+    {
+        $resto = $entityManager->getRepository(Resto::class)->find($id);
+
+        if (!$resto)
+            throw $this->createNotFoundException('Resto[id=' . $id . '] inexistante');
+        $form = $this->createForm(
+            RestoType::class,
+            $resto,
+            ['action' => $this->generateUrl(
+                'guide_michelin_modifier_suite',
+                array('id' => $resto->getId())
+            )]
+        );
+        $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager->persist($resto);
+            $entityManager->flush();
+            return $this->redirectToRoute('guide_michelin_voir', ['id' => $resto->getId()]);
+        }
+        return $this->render(
+            'resto/modifier.html.twig',
+            array('monFormulaire' => $form->createView())
+        );
     }
 }
