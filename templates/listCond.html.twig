@@ -1,0 +1,25 @@
+{% extends "layoutgeneral.html.twig" %}
+
+{% block titre %}
+ {{parent()}} : Liste de réstaurants
+ ( 
+ {% if inf %} < {% endif %}
+ {% if sup %} > {% endif %}
+ {{ etoile }} )
+{% endblock %}
+
+{% block contenu %}
+    <hr />
+    {% for resto in restos %}
+        <a href="{{ path('guide_michelin_voir', { 'id': resto.id }) }}">
+            {{resto.nom}}<br>
+            {{resto.chef}}<br>
+            {{resto.nbEtoile}}
+            </a>
+        <hr />
+    {% endfor %}
+
+    {% if sup %}
+    {{restos}}
+    {% endif %}
+{% endblock %}

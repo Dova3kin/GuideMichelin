@@ -129,4 +129,34 @@ class GuideMichelinController extends AbstractController
         $session->getFlashBag()->add('infoDel', 'Salle supprimée :' . $resto);
         return $this->redirectToRoute("guide_michelin_list");
     }
+
+    public function list2(EntityManagerInterface $eM, $etoile)
+    {
+        $resto = $eM->getRepository(Resto::class)->findBy(["nbEtoile" => $etoile]);
+        return $this->render("listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 0, "sup" => 0]);
+    }
+
+    public function list3(EntityManagerInterface $eM, $etoile)
+    {
+        $resto = $eM->getRepository(Resto::class)->FindByStarsMax($etoile);
+        return $this->render("listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 1, "sup" => 0]);
+    }
+
+    public function list4(EntityManagerInterface $eM, $etoile)
+    {
+        $resto = $eM->getRepository(Resto::class)->nbOfSup($etoile);
+        return $this->render("listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 0, "sup" => 1]);
+    }
+
+    public function ajouterEtoile(EntityManagerInterface $eM)
+    {
+        $eM->getRepository(Resto::class)->addAStar();
+        return $this->redirectToRoute("guide_michelin_list");
+    }
+
+    public function findByChef(EntityManagerInterface $eM, $chef)
+    {
+        $resto = $eM->getRepository(Resto::class)->findByChef($chef);
+        return $this->render("list.html.twig", ["restos" => $resto]);
+    }
 }

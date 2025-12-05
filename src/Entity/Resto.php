@@ -7,6 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[ORM\HasLifecycleCallbacks]
+
 #[ORM\Entity(repositoryClass: RestoRepository::class)]
 class Resto
 {
@@ -73,5 +75,12 @@ class Resto
     public function __toString()
     {
         return "Nom : " . $this->getNom() . "; Chef : " . $this->getChef() . "; Nb étoile : " . $this->getNbEtoile();
+    }
+
+    #[ORM\PrePersist]
+    #[ORM\PreUpdate]
+    public function corrigeNomResto()
+    {
+        $this->nom = strtoupper($this->nom);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Resto;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +15,30 @@ class RestoRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Resto::class);
+    }
+
+    public function FindByStarsMax($etoile)
+    {
+        $queryBuilder = $this->createQueryBuilder("r");
+        $queryBuilder->where('r.nbEtoile <= :etoile')
+            ->setParameter('etoile', $etoile)
+            ->orderBy('r.nbEtoile', 'desc');
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    public function nbOfSup($etoile)
+    {
+        $queryBuilder = $this->createQueryBuilder("r");
+        $queryBuilder->select('COUNT(r)')
+            ->where("r.nbEtoile > :etoile")
+            ->setParameter("etoile", $etoile);
+        return $queryBuilder->getQuery()->getSingleScalarResult();
+    }
+
+    public function addAStar()
+    {
+        $query = $this->getEntityManager()->createQuery("UPDATE APP\Entity\Resto r SET r.nbEtoile = r.nbEtoile + 1 WHERE r.nbEtoile < 3");
+        return $query->execute();
     }
 
     //    /**

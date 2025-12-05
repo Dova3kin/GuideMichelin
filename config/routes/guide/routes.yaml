@@ -44,3 +44,29 @@ guide_michelin_delete:
   controller: App\Controller\GuideMichelinController::delete
   requirements:
     id: \d+
+
+guide_michelin_list_cond:
+  path: resto/list/{etoile}
+  controller: App\Controller\GuideMichelinController::list2
+  requirements:
+    nbEtoile: 0|1|2|3|4|5
+
+guide_michelin_list_cond_inf:
+  path: resto/list_inf/{etoile}
+  controller: App\Controller\GuideMichelinController::list3
+  requirements:
+    nbEtoile: 0|1|2|3|4|5
+
+guide_michelin_list_cond_sup:
+  path: resto/list_sup/{etoile}
+  controller: App\Controller\GuideMichelinController::list4
+  requirements:
+    nbEtoile: 0|1|2|3|4|5
+
+guide_michelin_ajouter_etoile:
+  path: resto/ajouter_etoile
+  controller: App\Controller\GuideMichelinController::ajouterEtoile
+
+guide_michelin_find_by_chef:
+  path: resto/find_by_chef/{chef}
+  controller: App\Controller\GuideMichelinController::findByChef
