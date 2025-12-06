@@ -4,3 +4,15 @@ chef_edit:
   requirements:
     nom: \w+
     prenom: \w+
+
+guide_michelin_list_chef:
+  path: list
+  controller: App\Controller\ChefController::chefList
+
+guide_michelin_voir_chef:
+  path: voir/{id}
+  controller: App\Controller\ChefController::voirChef
+
+guide_michelin_supprimer_chef:
+  path: delete/{id}
+  controller: App\Controller\ChefController::deleteChef

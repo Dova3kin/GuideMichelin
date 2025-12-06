@@ -1,0 +1,12 @@
+{% extends "layoutgeneral.html.twig"%}
+
+{% block titre %}
+    {{parent()}} : voir {{chef.nom}} {{chef.prenom}} 
+{% endblock %}
+
+{% block contenu %}
+{% for resto in chef.restos %}
+    {{resto}}<br>
+{% endfor %}
+<a href='{{ path("guide_michelin_supprimer_chef", {'id': chef.id}) }}'> Supprimer </a>
+{% endblock %}

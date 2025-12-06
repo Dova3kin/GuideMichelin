@@ -20,6 +20,9 @@ class Resto
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[ORM\ManyToOne(cascade: ["persist"], inversedBy: 'restos')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
+    private ?Chef $chef = null;
 
 
     #[ORM\Column(type: Types::SMALLINT)]
@@ -46,10 +49,6 @@ class Resto
 
         return $this;
     }
-
-    #[ORM\ManyToOne(cascade: ["persist"], inversedBy: 'restos')]
-    private ?Chef $chef = null;
-
 
     public function getNbEtoile(): ?int
     {

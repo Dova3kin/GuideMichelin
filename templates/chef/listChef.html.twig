@@ -1,0 +1,13 @@
+{% extends "layoutgeneral.html.twig" %}
+
+{% block titre %}
+    {{parent()}} : Liste des chefs
+{% endblock %}
+
+{% block contenu %}
+{% for chef in chefs %}
+    <a href='{{ path("guide_michelin_voir_chef", {"id" : chef.id}) }}'>
+    Nom : {{chef.nom}}<br>
+    Prénom : {{chef.prenom}}<br><br>
+{% endfor %}
+{% endblock %}

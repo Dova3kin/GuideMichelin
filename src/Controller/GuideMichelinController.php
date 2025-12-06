@@ -31,7 +31,7 @@ class GuideMichelinController extends AbstractController
         $resto = $entityManager->getRepository(Resto::class)->find($id);
         if (!$resto)
             throw $this->createNotFoundException("Resto[id=" . $id . "n'existe pas");
-        return $this->render("voir.html.twig", ['resto' => $resto]);
+        return $this->render("resto/voir.html.twig", ['resto' => $resto]);
     }
 
     public function add(EntityManagerInterface $entityManager, $nom, $chef, $etoile)
@@ -62,7 +62,7 @@ class GuideMichelinController extends AbstractController
             return $this->redirectToRoute("guide_michelin_list", ["id" => $resto->getId()]);
         }
         return $this->render(
-            'ajouter2.html.twig',
+            'resto/ajouter2.html.twig',
             array('monFormulaire' => $form->createView())
         );
     }
@@ -71,7 +71,7 @@ class GuideMichelinController extends AbstractController
     {
         $restos = $entityManager
             ->getRepository(Resto::class)->findAll();
-        return $this->render('list.html.twig', array('restos' => $restos));
+        return $this->render('resto/list.html.twig', array('restos' => $restos));
     }
 
     public function modifier(EntityManagerInterface $entityManager, $id)
@@ -89,7 +89,7 @@ class GuideMichelinController extends AbstractController
         );
         $form->add('submit', SubmitType::class, array('label' => 'Modifier'));
         return $this->render(
-            'modifier.html.twig',
+            'resto/modifier.html.twig',
             array('monFormulaire' => $form->createView())
         );
     }
@@ -134,19 +134,19 @@ class GuideMichelinController extends AbstractController
     public function list2(EntityManagerInterface $eM, $etoile)
     {
         $resto = $eM->getRepository(Resto::class)->findBy(["nbEtoile" => $etoile]);
-        return $this->render("listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 0, "sup" => 0]);
+        return $this->render("resto/listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 0, "sup" => 0]);
     }
 
     public function list3(EntityManagerInterface $eM, $etoile)
     {
         $resto = $eM->getRepository(Resto::class)->FindByStarsMax($etoile);
-        return $this->render("listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 1, "sup" => 0]);
+        return $this->render("resto/listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 1, "sup" => 0]);
     }
 
     public function list4(EntityManagerInterface $eM, $etoile)
     {
         $resto = $eM->getRepository(Resto::class)->nbOfSup($etoile);
-        return $this->render("listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 0, "sup" => 1]);
+        return $this->render("resto/listCond.html.twig", ["restos" => $resto, "etoile" => $etoile, "inf" => 0, "sup" => 1]);
     }
 
     public function ajouterEtoile(EntityManagerInterface $eM)
@@ -158,13 +158,13 @@ class GuideMichelinController extends AbstractController
     public function findByChef(EntityManagerInterface $eM, $chef)
     {
         $resto = $eM->getRepository(Resto::class)->findByChef($chef);
-        return $this->render("list.html.twig", ["restos" => $resto]);
+        return $this->render("resto/list.html.twig", ["restos" => $resto]);
     }
 
     public function listId(EntityManagerInterface $eM)
     {
         $restos = $eM->getRepository(Resto::class)->findAll();
-        return $this->render("idList.html.twig", ["restos" => $restos]);
+        return $this->render("resto/idList.html.twig", ["restos" => $restos]);
     }
 
 
