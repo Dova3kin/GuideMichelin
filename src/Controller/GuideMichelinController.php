@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Session\Session;
 use App\Form\Type\RestoType;
 
+
 class GuideMichelinController extends AbstractController
 {
     public function accueil($nom)
@@ -65,6 +66,25 @@ class GuideMichelinController extends AbstractController
             'resto/ajouter2.html.twig',
             array('monFormulaire' => $form->createView())
         );
+    }
+
+    public function add3(EntityManagerInterface $eM, Session $session, Request $request)
+    {
+        $resto = new Resto;
+        $form = $this->createForm(
+            RestoType::class,
+            $resto,
+            ["action" => $this->generateUrl('guide_michelin_ajouter3')]
+        );
+        $form->add('submit', SubmitType::class, ['label' => "ajouter"]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $eM->persist($resto);
+            $eM->flush();
+            $session->getFlashBag()->add('infoAdd', 'nouveau restau ajouté :' . $resto);
+            return $this->redirectToRoute('guide_michelin_list');
+        }
+        return $this->render('resto/ajouter3.html.twig', ['monFormulaire' => $form->createView()]);
     }
 
     public function list(EntityManagerInterface $entityManager)

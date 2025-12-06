@@ -26,6 +26,10 @@ guide_michelin_ajouter2:
   path: /resto/ajouter2
   controller: App\Controller\GuideMichelinController::add2
 
+guide_michelin_ajouter3:
+  path: /resto/ajouter3
+  controller: App\Controller\GuideMichelinController::add3
+
 guide_michelin_list:
   path: resto/list
   controller: App\Controller\GuideMichelinController::list

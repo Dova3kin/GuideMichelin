@@ -1,0 +1,10 @@
+{% extends "layoutgeneral.html.twig" %}
+
+{% block titre %}
+ {{ parent() }} - ajouter un réstaurant
+{% endblock %}
+
+{% block contenu %}
+ <h3>renseigner les champs ci-dessous</h3>
+ {% include "resto/formulaire.html.twig" %}
+{% endblock %}
