@@ -1,0 +1,6 @@
+chef_edit:
+  path: edit/{nom}{prenom}
+  controller: App\Controller\ChefController::edit
+  requirements:
+    nom: \w+
+    prenom: \w+

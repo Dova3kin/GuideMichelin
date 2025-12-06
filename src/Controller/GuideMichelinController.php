@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Resto;
+use App\Entity\Chef;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
@@ -158,5 +159,25 @@ class GuideMichelinController extends AbstractController
     {
         $resto = $eM->getRepository(Resto::class)->findByChef($chef);
         return $this->render("list.html.twig", ["restos" => $resto]);
+    }
+
+    public function listId(EntityManagerInterface $eM)
+    {
+        $restos = $eM->getRepository(Resto::class)->findAll();
+        return $this->render("idList.html.twig", ["restos" => $restos]);
+    }
+
+
+    public function modifier2(EntityManagerInterface $eM, $id, $nom, $nom_chef, $nbEtoile)
+    {
+        $resto = $eM->getRepository(Resto::class)->find($id);
+        $resto->setNom($nom);
+        $chef = new Chef();
+        $chef->setNom($nom_chef);
+        $chef->setPrenom("Steph");
+        $resto->setChef($chef);
+        $resto->setNbEtoile($nbEtoile);
+        $eM->flush();
+        return $this->redirectToRoute("guide_michelin_list");
     }
 }

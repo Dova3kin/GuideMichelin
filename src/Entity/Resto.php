@@ -20,8 +20,7 @@ class Resto
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 124)]
-    private ?string $chef = null;
+
 
     #[ORM\Column(type: Types::SMALLINT)]
     #[Assert\Range(
@@ -48,17 +47,9 @@ class Resto
         return $this;
     }
 
-    public function getChef(): ?string
-    {
-        return $this->chef;
-    }
+    #[ORM\ManyToOne(cascade: ["persist"], inversedBy: 'restos')]
+    private ?Chef $chef = null;
 
-    public function setChef(string $chef): static
-    {
-        $this->chef = $chef;
-
-        return $this;
-    }
 
     public function getNbEtoile(): ?int
     {
@@ -82,5 +73,17 @@ class Resto
     public function corrigeNomResto()
     {
         $this->nom = strtoupper($this->nom);
+    }
+
+    public function getChef(): ?Chef
+    {
+        return $this->chef;
+    }
+
+    public function setChef(?Chef $chef): static
+    {
+        $this->chef = $chef;
+
+        return $this;
     }
 }

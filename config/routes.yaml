@@ -7,3 +7,7 @@ controllers:
 guide_michelin:
   resource: routes/guide/routes.yaml
   prefix: /guideMichelin
+
+chef:
+  resource: routes/chef/routes.yaml
+  prefix: /chef

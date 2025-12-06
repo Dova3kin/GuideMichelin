@@ -1,0 +1,14 @@
+{% extends "layoutgeneral.html.twig" %}
+
+{% block titre %}
+ {{parent()}} : Id des réstaurants
+{% endblock %}
+
+{% block contenu %}
+    <hr />
+    {% for resto in restos %}
+        <a href="{{ path('guide_michelin_voir', { 'id': resto.id }) }}">
+            {{resto.id}} {{resto.nom}}
+            </a><br><br>
+    {% endfor %}
+{% endblock %}

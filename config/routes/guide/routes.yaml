@@ -70,3 +70,11 @@ guide_michelin_ajouter_etoile:
 guide_michelin_find_by_chef:
   path: resto/find_by_chef/{chef}
   controller: App\Controller\GuideMichelinController::findByChef
+
+guide_michelin_id_list:
+  path: resto/edit/
+  controller: App\Controller\GuideMichelinController::listId
+
+guide_michelin_edit_resto:
+  path: resto/edit/{id}-{nom}-{nom_chef}-{nbEtoile}
+  controller: App\Controller\GuideMichelinController::modifier2

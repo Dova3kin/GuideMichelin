@@ -9,7 +9,8 @@
     {% for resto in restos %}
         <a href="{{ path('guide_michelin_voir', { 'id': resto.id }) }}">
             {{resto.nom}}<br>
-            {{resto.chef}}<br>
+            {{resto.chef.nom}}<br>
+            {{resto.chef.prenom}}<br>
             {{resto.nbEtoile}}
             </a>
         <hr />

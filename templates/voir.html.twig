@@ -7,7 +7,7 @@
 {% block contenu %}
     <p>  {{resto}}<br>
     </p>
-    <p><a href="{{ path('guide_michelin_modifier', { 'id': resto.id }) }}">modifier la salle</a></p>
-    <p><a href="{{ path('guide_michelin_delete', { 'id' : resto.id}) }}">Supprimer réstaurant</a></p>
- </p>
+        <p><a href="{{ path('guide_michelin_modifier', { 'id': resto.id }) }}">modifier le réstaurant</a></p>
+        <p><a href="{{ path('guide_michelin_delete', { 'id' : resto.id}) }}">Supprimer le réstaurant</a></p>
+    </p>
 {% endblock %}
