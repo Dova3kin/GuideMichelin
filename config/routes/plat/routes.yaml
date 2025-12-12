@@ -1,0 +1,3 @@
+plat_ajouter:
+  path: /add
+  controller: App\Controller\PlatController::add

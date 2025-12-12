@@ -113,7 +113,6 @@ class GuideMichelinController extends AbstractController
             array('monFormulaire' => $form->createView())
         );
     }
-
     public function modifierSuite(EntityManagerInterface $entityManager, Request
     $request, $id)
     {

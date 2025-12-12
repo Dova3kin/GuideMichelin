@@ -9,7 +9,9 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use App\Entity\Resto;
+use App\Entity\Plat;
 use App\Repository\ChefRepository;
+use App\Repository\PlatRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RestoType extends AbstractType
@@ -27,6 +29,16 @@ class RestoType extends AbstractType
                         return $repo->createQueryBuilder("c")
                             ->orderBy("c.nom", 'asc');
                     }
+                ]
+            )
+            ->add(
+                'menu',
+                EntityType::class,
+                [
+                    "class" => Plat::class,
+                    'multiple' => true,
+                    'expanded' => true,
+                    'by_reference' => false
                 ]
             );
     }

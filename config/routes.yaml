@@ -11,3 +11,7 @@ guide_michelin:
 chef:
   resource: routes/chef/routes.yaml
   prefix: /chef
+
+plat:
+  resource: routes/plat/routes.yaml
+  prefix: /plat
